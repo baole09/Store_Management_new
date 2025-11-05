@@ -1,0 +1,14 @@
+EM1|Nguyen Van A|0901234567|Manager|Senior|Ca sang
+EM2|Tran Thi B|0912345678|Manager|Middle|Ca chieu
+EM3|Le Van C|0923456789|Manager|Junior|Ca toi
+EM4|Pham Thi D|0934567890|Manager|Senior|Ca sang
+EM5|Vo Van E|0945678901|Manager|Middle|Ca chieu
+ES1|Nguyen Thi F|0956789012|Sales|Ban hang|Ca sang
+ES2|Tran Van G|0967890123|Sales|Cham soc khach hang|Ca chieu
+ES3|Le Thi H|0978901234|Sales|Ban hang|Ca toi
+ES4|Pham Van I|0989012345|Sales|Cham soc khach hang|Ca sang
+ESP1|Nguyen Van L|0902345678|Support|Ky thuat|Sua may
+ESP2|Tran Thi M|0913456789|Support|Bao tri|Cai dat
+ESP3|Le Van N|0924567890|Support|Ky thuat|Cuu ho
+ESP4|Pham Thi O|0935678901|Support|IT|Lap trinh
+ESP5|Vo Van P|0946789012|Support|Bao tri|Cai dat

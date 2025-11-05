@@ -190,143 +190,261 @@ public class StoreManagement {
     }
 
     // Employee menu
-    private static void employeeMenu(){
-        while(true){
-            System.out.println("\n--- Quản lý Nhân viên ---");
-            System.out.println("1. Nhân viên kỹ thuật");
-            System.out.println("2. Nhân viên bình thường");
-            System.out.println("3. Hiển thị tất cả");
-            System.out.println("4. Tìm kiếm theo tên");
-            System.out.println("5. Xóa theo ID");
-            System.out.println("0. Quay lại");
-            System.out.print("Chọn: ");
-            String c = sc.nextLine().trim();
-            switch(c){
-                case "1": manageTechnician(); break;
-                case "2": manageRegular(); break;
-                case "3": listAllEmployees(); break;
-                case "4": searchEmployees(); break;
-                case "5": deleteEmployee(); break;
-                case "0": return;
-                default: System.out.println("Chọn sai.");
-            }
-        }
-    }
+    // private static void employeeMenu(){
+    //     while(true){
+    //         System.out.println("\n--- Quản lý Nhân viên ---");
+    //         System.out.println("1. Nhân viên kỹ thuật");
+    //         System.out.println("2. Nhân viên bình thường");
+    //         System.out.println("3. Hiển thị tất cả");
+    //         System.out.println("4. Tìm kiếm theo tên");
+    //         System.out.println("5. Xóa theo ID");
+    //         System.out.println("0. Quay lại");
+    //         System.out.print("Chọn: ");
+    //         String c = sc.nextLine().trim();
+    //         switch(c){
+    //             case "1": manageTechnician(); break;
+    //             case "2": manageRegular(); break;
+    //             case "3": listAllEmployees(); break;
+    //             case "4": searchEmployees(); break;
+    //             case "5": deleteEmployee(); break;
+    //             case "0": return;
+    //             default: System.out.println("Chọn sai.");
+    //         }
+    //     }
+    // }
 
-    private static void manageTechnician(){
-        while(true){
-            System.out.println("\n--- Kỹ thuật viên ---");
-            System.out.println("1. Thêm kỹ thuật viên");
-            System.out.println("2. Hiển thị kỹ thuật viên");
-            System.out.println("3. Sửa kỹ thuật viên");
-            System.out.println("4. Phân ca làm");
-            System.out.println("0. Quay lại");
-            System.out.print("Chọn: ");
-            String c = sc.nextLine().trim();
-            switch(c){
-                case "1":
-                    System.out.print("Tên: "); String name = sc.nextLine();
-                    System.out.print("Phone: "); String phone = sc.nextLine();
-                    System.out.print("Ca làm (Sáng/Chiều/Tối): "); String shift = sc.nextLine();
-                    System.out.print("Kỹ năng đặc biệt: "); String skill = sc.nextLine();
-                    Technician t = new Technician("", name, phone, shift, skill);
-                    em.add(t);
-                    System.out.println("Đã thêm: " + t.toDisplay());
-                    break;
-                case "2":
-                    for(Employee e: em.all()) if (e instanceof Technician) System.out.println(e.toDisplay());
-                    break;
-                case "3":
-                    System.out.print("ID cần sửa: "); String id = sc.nextLine().trim();
-                    Employee ee = em.findById(id);
-                    if (ee==null || !(ee instanceof Technician)){ System.out.println("Không tìm thấy kỹ thuật viên."); break;}
-                    Technician tt = (Technician) ee;
-                    System.out.print("Tên mới (Enter giữ): "); String s = sc.nextLine(); if (!s.isEmpty()) tt.setName(s);
-                    System.out.print("Phone mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) tt.setPhone(s);
-                    System.out.print("Ca làm mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) tt.setShift(s);
-                    System.out.print("Kỹ năng mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) tt.setSpecialSkill(s);
-                    System.out.println("Đã cập nhật: " + tt.toDisplay());
-                    break;
-                case "4":
-                    System.out.print("ID nhân viên: "); String id2 = sc.nextLine().trim();
-                    Employee e2 = em.findById(id2);
-                    if (e2==null){ System.out.println("Không tìm thấy."); break;}
-                    System.out.print("Ca mới (Sáng/Chiều/Tối): "); String newShift = sc.nextLine();
-                    e2.setShift(newShift);
-                    System.out.println("Đã cập nhật ca cho " + id2);
-                    break;
-                case "0": return;
-                default: System.out.println("Chọn sai.");
-            }
-        }
-    }
+    // private static void manageTechnician(){
+    //     while(true){
+    //         System.out.println("\n--- Kỹ thuật viên ---");
+    //         System.out.println("1. Thêm kỹ thuật viên");
+    //         System.out.println("2. Hiển thị kỹ thuật viên");
+    //         System.out.println("3. Sửa kỹ thuật viên");
+    //         System.out.println("4. Phân ca làm");
+    //         System.out.println("0. Quay lại");
+    //         System.out.print("Chọn: ");
+    //         String c = sc.nextLine().trim();
+    //         switch(c){
+    //             case "1":
+    //                 System.out.print("Tên: "); String name = sc.nextLine();
+    //                 System.out.print("Phone: "); String phone = sc.nextLine();
+    //                 System.out.print("Ca làm (Sáng/Chiều/Tối): "); String shift = sc.nextLine();
+    //                 System.out.print("Kỹ năng đặc biệt: "); String skill = sc.nextLine();
+    //                 Technician t = new Technician("", name, phone, shift, skill);
+    //                 em.add(t);
+    //                 System.out.println("Đã thêm: " + t.toDisplay());
+    //                 break;
+    //             case "2":
+    //                 for(Employee e: em.all()) if (e instanceof Technician) System.out.println(e.toDisplay());
+    //                 break;
+    //             case "3":
+    //                 System.out.print("ID cần sửa: "); String id = sc.nextLine().trim();
+    //                 Employee ee = em.findById(id);
+    //                 if (ee==null || !(ee instanceof Technician)){ System.out.println("Không tìm thấy kỹ thuật viên."); break;}
+    //                 Technician tt = (Technician) ee;
+    //                 System.out.print("Tên mới (Enter giữ): "); String s = sc.nextLine(); if (!s.isEmpty()) tt.setName(s);
+    //                 System.out.print("Phone mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) tt.setPhone(s);
+    //                 System.out.print("Ca làm mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) tt.setShift(s);
+    //                 System.out.print("Kỹ năng mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) tt.setSpecialSkill(s);
+    //                 System.out.println("Đã cập nhật: " + tt.toDisplay());
+    //                 break;
+    //             case "4":
+    //                 System.out.print("ID nhân viên: "); String id2 = sc.nextLine().trim();
+    //                 Employee e2 = em.findById(id2);
+    //                 if (e2==null){ System.out.println("Không tìm thấy."); break;}
+    //                 System.out.print("Ca mới (Sáng/Chiều/Tối): "); String newShift = sc.nextLine();
+    //                 e2.setShift(newShift);
+    //                 System.out.println("Đã cập nhật ca cho " + id2);
+    //                 break;
+    //             case "0": return;
+    //             default: System.out.println("Chọn sai.");
+    //         }
+    //     }
+    // }
 
-    private static void manageRegular(){
-        while(true){
-            System.out.println("\n--- Nhân viên bán hàng ---");
+    // private static void manageRegular(){
+    //     while(true){
+    //         System.out.println("\n--- Nhân viên bán hàng ---");
+    //         System.out.println("1. Thêm nhân viên");
+    //         System.out.println("2. Hiển thị nhân viên");
+    //         System.out.println("3. Sửa nhân viên");
+    //         System.out.println("4. Phân ca làm");
+    //         System.out.println("0. Quay lại");
+    //         System.out.print("Chọn: ");
+    //         String c = sc.nextLine().trim();
+    //         switch(c){
+    //             case "1":
+    //                 System.out.print("Tên: "); String name = sc.nextLine();
+    //                 System.out.print("Phone: "); String phone = sc.nextLine();
+    //                 System.out.print("Công việc: "); String role = sc.nextLine();
+    //                 System.out.print("Ca làm (Sáng/Chiều/Tối): "); String shift = sc.nextLine();
+    //                 RegularEmployee r = new RegularEmployee("", name, phone, role, shift);
+    //                 em.add(r);
+    //                 System.out.println("Đã thêm: " + r.toDisplay());
+    //                 break;
+    //             case "2":
+    //                 for(Employee e: em.all()) if (e instanceof RegularEmployee) System.out.println(e.toDisplay());
+    //                 break;
+    //             case "3":
+    //                 System.out.print("ID cần sửa: "); String id = sc.nextLine().trim();
+    //                 Employee ee = em.findById(id);
+    //                 if (ee==null || !(ee instanceof RegularEmployee)){ System.out.println("Không tìm thấy nhân viên"); break;}
+    //                 RegularEmployee rr = (RegularEmployee) ee;
+    //                 System.out.print("Tên mới (Enter giữ): "); String s = sc.nextLine(); if (!s.isEmpty()) rr.setName(s);
+    //                 System.out.print("Phone mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) rr.setPhone(s);
+    //                 System.out.print("Ca làm mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) rr.setShift(s);
+    //                 System.out.println("Đã cập nhật: " + rr.toDisplay());
+    //                 break;
+    //             case "4":
+    //                 System.out.print("ID nhân viên: "); String id2 = sc.nextLine().trim();
+    //                 Employee e2 = em.findById(id2);
+    //                 if (e2==null){ System.out.println("Không tìm thấy."); break;}
+    //                 System.out.print("Ca mới (Sáng/Chiều/Tối): "); String newShift = sc.nextLine();
+    //                 e2.setShift(newShift);
+    //                 System.out.println("Đã cập nhật ca cho " + id2);
+    //                 break;
+    //             case "0": return;
+    //             default: System.out.println("Chọn sai.");
+    //         }
+    //     }
+    // }
+
+    // private static void listAllEmployees(){
+    //     List<Employee> list = em.all();
+    //     if (list.isEmpty()){ System.out.println("Chưa có nhân viên."); return;}
+    //     for(Employee e: list) System.out.println(e.toDisplay());
+    // }
+
+    // private static void searchEmployees(){
+    //     System.out.print("Nhập từ khoá tên: "); String q = sc.nextLine();
+    //     List<Employee> r = em.searchByName(q);
+    //     if (r.isEmpty()) System.out.println("Không tìm thấy.");
+    //     else for(Employee e: r) System.out.println(e.toDisplay());
+    // }
+
+    // private static void deleteEmployee(){
+    //     System.out.print("ID cần xóa: "); String id = sc.nextLine().trim();
+    //     Employee e = em.findById(id);
+    //     if (e==null){ System.out.println("Không tìm thấy."); return;}
+    //     em.remove(id);
+    //     System.out.println("Đã xóa " + id);
+    // }
+    public static void employeeMenu() {
+        em.loadFromFile();
+
+        while (true) {
+            System.out.println("\n===== MENU QUẢN LÝ NHÂN VIÊN =====");
             System.out.println("1. Thêm nhân viên");
-            System.out.println("2. Hiển thị nhân viên");
-            System.out.println("3. Sửa nhân viên");
-            System.out.println("4. Phân ca làm");
-            System.out.println("0. Quay lại");
+            System.out.println("2. Hiển thị danh sách");
+            System.out.println("3. Tìm nhân viên theo từ khóa");
+            System.out.println("4. Xóa nhân viên");
+            System.out.println("5. Cập nhật ca làm");
+            System.out.println("0. Thoát");
             System.out.print("Chọn: ");
-            String c = sc.nextLine().trim();
-            switch(c){
-                case "1":
-                    System.out.print("Tên: "); String name = sc.nextLine();
-                    System.out.print("Phone: "); String phone = sc.nextLine();
-                    System.out.print("Công việc: "); String role = sc.nextLine();
-                    System.out.print("Ca làm (Sáng/Chiều/Tối): "); String shift = sc.nextLine();
-                    RegularEmployee r = new RegularEmployee("", name, phone, role, shift);
-                    em.add(r);
-                    System.out.println("Đã thêm: " + r.toDisplay());
-                    break;
-                case "2":
-                    for(Employee e: em.all()) if (e instanceof RegularEmployee) System.out.println(e.toDisplay());
-                    break;
-                case "3":
-                    System.out.print("ID cần sửa: "); String id = sc.nextLine().trim();
-                    Employee ee = em.findById(id);
-                    if (ee==null || !(ee instanceof RegularEmployee)){ System.out.println("Không tìm thấy nhân viên"); break;}
-                    RegularEmployee rr = (RegularEmployee) ee;
-                    System.out.print("Tên mới (Enter giữ): "); String s = sc.nextLine(); if (!s.isEmpty()) rr.setName(s);
-                    System.out.print("Phone mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) rr.setPhone(s);
-                    System.out.print("Ca làm mới (Enter giữ): "); s = sc.nextLine(); if (!s.isEmpty()) rr.setShift(s);
-                    System.out.println("Đã cập nhật: " + rr.toDisplay());
-                    break;
-                case "4":
-                    System.out.print("ID nhân viên: "); String id2 = sc.nextLine().trim();
-                    Employee e2 = em.findById(id2);
-                    if (e2==null){ System.out.println("Không tìm thấy."); break;}
-                    System.out.print("Ca mới (Sáng/Chiều/Tối): "); String newShift = sc.nextLine();
-                    e2.setShift(newShift);
-                    System.out.println("Đã cập nhật ca cho " + id2);
-                    break;
-                case "0": return;
-                default: System.out.println("Chọn sai.");
+            String choice = sc.nextLine().trim();
+
+            switch (choice) {
+                case "1" -> addEmployeeMenu();
+                case "2" -> em.displayAll();
+                case "3" -> findEmployee();
+                case "4" -> removeEmployee();
+                case "5" -> updateShift();
+                case "0" -> {
+                    System.out.println("Thoát chương trình!");
+                    em.saveToFile();
+                    return;
+                }
+                default -> System.out.println("Lựa chọn không hợp lệ!");
             }
         }
     }
 
-    private static void listAllEmployees(){
-        List<Employee> list = em.all();
-        if (list.isEmpty()){ System.out.println("Chưa có nhân viên."); return;}
-        for(Employee e: list) System.out.println(e.toDisplay());
+    // === Thêm nhân viên mới ===
+    private static void addEmployeeMenu() {
+        System.out.println("\n--- Chọn bộ phận ---");
+        System.out.println("1. Quản lý (Manager)");
+        System.out.println("2. Bán hàng (Sales)");
+        System.out.println("3. Hỗ trợ (Support)");
+        System.out.print("Chọn: ");
+        String type = sc.nextLine().trim();
+
+        System.out.print("Họ tên: ");
+        String name = sc.nextLine();
+        System.out.print("SĐT: ");
+        String phone = sc.nextLine();
+        System.out.print("Chức vụ: ");
+        String role = sc.nextLine();
+        System.out.print("Ca làm (Sáng/Chiều/Tối): ");
+        String shift = sc.nextLine();
+
+        switch (type) {
+            case "1" -> {
+                System.out.print("Cấp bậc (level): ");
+                String level = sc.nextLine();
+                Employee m = new managerDepartment("", name, phone, role, level, shift);
+                em.addEmployee(m);
+                System.out.println("Đã thêm: " + m.getId());
+            }
+            case "2" -> {
+                System.out.print("Nhiệm vụ (Bán hàng/Chăm sóc KH): ");
+                String task = sc.nextLine();
+                Employee s = new salesDepartment("", name, phone, role, task, shift);
+                em.addEmployee(s);
+                System.out.println("Đã thêm: " + s.getId());
+            }
+            case "3" -> {
+                System.out.print("Bộ phận (section): ");
+                String section = sc.nextLine();
+                System.out.print("Kỹ năng đặc biệt: ");
+                String skill = sc.nextLine();
+                Employee sp = new supportDepartment("", name, phone, role, section, shift, skill);
+                em.addEmployee(sp);
+                System.out.println("Đã thêm: " + sp.getId());
+            }
+            default -> System.out.println("Lựa chọn không hợp lệ!");
+        }
     }
 
-    private static void searchEmployees(){
-        System.out.print("Nhập từ khoá tên: "); String q = sc.nextLine();
-        List<Employee> r = em.searchByName(q);
-        if (r.isEmpty()) System.out.println("Không tìm thấy.");
-        else for(Employee e: r) System.out.println(e.toDisplay());
+    // === Tìm nhân viên theo ID ===
+    private static void findEmployee() {
+        System.out.print("Nhập từ khóa cần tìm: ");
+        String key = sc.nextLine().trim().toLowerCase();
+        boolean found = false;
+
+        for (Employee e : em.getAll()) {
+            if (e.getId().toLowerCase().contains(key)
+            || e.getName().toLowerCase().contains(key)
+            || e.getRole().toLowerCase().contains(key)) {
+                System.out.println(e.toDisplay());
+                found = true;
+            }
+        }
+
+        if (!found)
+            System.out.println("Không tìm thấy nhân viên!");
     }
 
-    private static void deleteEmployee(){
-        System.out.print("ID cần xóa: "); String id = sc.nextLine().trim();
-        Employee e = em.findById(id);
-        if (e==null){ System.out.println("Không tìm thấy."); return;}
-        em.remove(id);
-        System.out.println("Đã xóa " + id);
+
+    // === Xóa nhân viên ===
+    private static void removeEmployee() {
+        System.out.print("Nhập mã nhân viên cần xóa: ");
+        String id = sc.nextLine().trim();
+        if (em.removeById(id))
+            System.out.println("Đã xóa nhân viên " + id);
+        else
+            System.out.println("Không tìm thấy mã nhân viên!");
+    }
+
+
+    // === Cập nhật ca làm ===
+    private static void updateShift() {
+        System.out.print("Nhập mã nhân viên: ");
+        String id = sc.nextLine().trim();
+        System.out.print("Nhập ca làm mới (Sáng/Chiều/Tối): ");
+        String shift = sc.nextLine().trim();
+        if (em.updateShift(id, shift))
+            System.out.println("Cập nhật thành công!");
+        else
+            System.out.println("Không tìm thấy nhân viên!");
     }
 
     // Customer menu
@@ -502,7 +620,7 @@ public class StoreManagement {
 
     private static void writeAllFiles(){
         pm.saveToFile();
-        em.saveToFile();
+        //em.saveToFile();
         cm.saveToFile();
         om.saveToFile();
         System.out.println("Hoàn tất ghi dữ liệu ra file.");
@@ -513,7 +631,7 @@ public class StoreManagement {
         String ans = sc.nextLine().trim().toLowerCase();
         if (!ans.equals("y")) { System.out.println("Huỷ thao tác đọc file."); return;}
         pm.loadFromFile();
-        em.loadFromFile();
+        ///em.loadFromFile();
         cm.loadFromFile();
         om.loadFromFile();
         System.out.println("Hoàn tất đọc dữ liệu từ file.");
