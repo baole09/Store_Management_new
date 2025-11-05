@@ -1,0 +1,10 @@
+C1|Nguyễn Văn An|0905123456|an.nguyen@example.com
+C2|Trần Thị Bình|0912345678|binh.tran@example.com
+C3|Lê Quốc Cường|0987654321|cuong.le@example.com
+C4|Phạm Hồng Dung|0938765432|dung.pham@example.com
+C5|Võ Thanh Em|0978123456|em.vo@example.com
+C6|Bùi Minh Phúc|0923456789|phuc.bui@example.com
+C7|Đỗ Ngọc Hân|0909345678|han.do@example.com
+C8|Nguyễn Hoàng Khải|0965432187|khai.nguyen@example.com
+C9|Trương Thị Lan|0919786543|lan.truong@example.com
+C10|Lâm Văn Minh|0945678123|minh.lam@example.com
