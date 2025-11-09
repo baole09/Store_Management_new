@@ -30,12 +30,13 @@ public class Product {
         this.category = category;
     }
 
-    // getters/setters
+    // getters
     public String getId(){return id;}
     public String getName(){return name;}
     public double getPrice(){return price;}
     public int getQuantity(){return quantity;}
     public String getCategory(){return category;}
+    //setters
     public void setName(String n){name = n;}
     public void setPrice(double p){price = p;}
     public void setQuantity(int q){quantity = q;}

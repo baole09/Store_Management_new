@@ -4,13 +4,14 @@ import java.util.*;
 public class CustomerManager {
     private List<Customer> list = new ArrayList<>();
     private final String fileName = "customers.txt";
+    Scanner sc = new Scanner(System.in);
+    
+    public void add(Customer c){ 
+        list.add(c); 
+    }
 
     public List<Customer> all(){ 
         return list; 
-    }
-
-    public void add(Customer c){ 
-        list.add(c); 
     }
 
     public Customer findById(String id){ 
@@ -23,6 +24,7 @@ public class CustomerManager {
     public void remove(String id){ 
         list.removeIf(c->c.getId().equals(id)); 
     }
+    
     public List<Customer> searchByName(String q){ 
         List<Customer> r=new ArrayList<>(); 
         for(Customer c:list) 
@@ -35,7 +37,6 @@ public class CustomerManager {
         try(PrintWriter pw = new PrintWriter(new FileWriter(fileName))){
             for(Customer c: list) 
                 pw.println(c.toCSV());
-            System.out.println("Đã ghi " + list.size() + " khách hàng ra " + fileName);
         } 
         catch(IOException e){ 
             System.out.println("Lỗi khi ghi customers: " + e.getMessage()); 
@@ -64,4 +65,5 @@ public class CustomerManager {
             System.out.println("Lỗi khi đọc customers: " + e.getMessage()); 
         }
     }
+    
 }
