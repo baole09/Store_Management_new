@@ -1,0 +1,255 @@
+@startuml StoreManagement
+
+' --------------------------
+' PHẦN 1: QUẢN LÝ KHÁCH HÀNG
+' --------------------------
+class Customer {
+    - {static} counter: int
+    - id: String
+    - name: String
+    - phone: String
+    - email: String
+    + Customer(id: String, name: String, phone: String, email: String)
+    + getId(): String
+    + setName(n: String)
+    + toCSV(): String
+    + {static} fromCSV(line: String): Customer
+    + toString(): String
+}
+
+class CustomerManager {
+    - list: List<Customer>
+    - fileName: String
+    - sc: Scanner
+    + add(c: Customer)
+    + all(): List<Customer>
+    + findById(id: String): Customer
+    + remove(id: String)
+    + searchByName(q: String): List<Customer>
+    + saveToFile()
+    + loadFromFile()
+}
+
+class CustomerMenu {
+    - cm: CustomerManager
+    - sc: Scanner
+    + CustomerMenu(cm: CustomerManager)
+    + customerMenu(cm: CustomerManager)
+    + addCustomer()
+    + listCustomers()
+    + editCustomer()
+    + deleteCustomer()
+    + searchCustomer()
+}
+
+CustomerManager "1" <.. "0..*" Customer : manages
+
+CustomerMenu o--> CustomerManager : uses
+
+' --------------------------
+' PHẦN 2: QUẢN LÝ NHÂN VIÊN
+' --------------------------
+interface ICsvDisplay {
+}
+
+abstract class Employee implements ICsvDisplay {
+    # id: String
+    # name: String
+    # phone: String
+    # role: String
+    # shift: String
+    + Employee(id, name, phone, role, shift)
+    + getId(): String
+    + setShift(s: String)
+    + {abstract} toCSV(): String
+    + {abstract} toDisplay(): String
+}
+
+class managerDepartment extends Employee {
+    - {static} counter: int
+    - level: String
+    + managerDepartment(...)
+    + getLevel(): String
+    + setLevel(level: String)
+    + toCSV(): String
+    + toDisplay(): String
+}
+
+class salesDepartment extends Employee {
+    - {static} counter: int
+    - task: String
+    + salesDepartment(...)
+    + getTask(): String
+    + setTask(task: String)
+    + toCSV(): String
+    + toDisplay(): String
+}
+
+class supportDepartment extends Employee {
+    - {static} counter: int
+    - section: String
+    - specialSkill: String
+    + supportDepartment(...)
+    + getSection(): String
+    + getSpecialSkill(): String
+    + toCSV(): String
+    + toDisplay(): String
+}
+
+class EmployeeManager {
+    - employees: List<Employee>
+    - filename: String
+    + loadFromFile()
+    + saveToFile()
+    + addEmployee(e: Employee)
+    + removeById(id: String): boolean
+    + findEmployee(key: String): List<Employee>
+    + displayAll()
+    + updateShift(id: String, newShift: String): boolean
+    + getAll(): List<Employee>
+}
+
+class EmployeeMenu {
+    - em: EmployeeManager
+    - sc: Scanner
+    + EmployeeMenu(em: EmployeeManager)
+    + employeeMenu()
+    + addEmployeeMenu()
+    + findEmployee()
+    + removeEmployee()
+    + updateShift()
+}
+
+EmployeeManager "1" <.. "0..*" Employee : manages
+EmployeeMenu o--> EmployeeManager : uses
+
+' --------------------------
+' PHẦN 3: QUẢN LÝ SẢN PHẨM
+' --------------------------
+class Product {
+    - {static} counter: int
+    - id: String
+    - name: String
+    - price: double
+    - quantity: int
+    - category: String
+    + Product(...)
+    + getId(): String
+    + setPrice(p: double)
+    + setQuantity(q: int)
+    + toCSV(): String
+    + {static} fromCSV(line: String): Product
+    + toString(): String
+}
+
+class ProductManager {
+    - list: List<Product>
+    - fileName: String
+    - sc: Scanner
+    + add(p: Product)
+    + findById(id: String): Product
+    + loadFromFile()
+    + saveToFile()
+    + readInt(): int
+    + readLong(): long
+}
+
+class ProductMenu {
+    - sc: Scanner
+    - pm: ProductManager
+    + ProductMenu(pm: ProductManager)
+    + showMenu()
+    + addProduct()
+    + editProduct()
+    + deleteProduct()
+    + search(keyword: String): List<Product>
+    + filterAndDisplay()
+}
+
+ProductManager "1" <.. "0..*" Product : manages
+ProductMenu o--> ProductManager : uses
+
+' --------------------------
+' PHẦN 4: QUẢN LÝ ĐƠN HÀNG
+' --------------------------
+class OrderItem {
+    - productId: String
+    - productName: String
+    - quantity: int
+    - unitPrice: double
+    + OrderItem(...)
+    + total(): double
+    + toCSV(): String
+    + {static} fromCSV(s: String): OrderItem
+    + toString(): String
+}
+
+class Order {
+    - {static} counter: int
+    - id: String
+    - customerId: String
+    - customerName: String
+    - orderDate: Date
+    - status: String
+    - items: List<OrderItem>
+    + Order(...)
+    + addItem(it: OrderItem)
+    + total(): double
+    + setStatus(s: String)
+    + toCSV(): String
+    + {static} fromCSV(line: String): Order
+    + toString(): String
+}
+
+class OrderManager {
+    - list: List<Order>
+    - fileName: String
+    + add(o: Order)
+    + findById(id: String): Order
+    + remove(id: String)
+    + searchByCustomerName(q: String): List<Order>
+    + saveToFile()
+    + loadFromFile()
+}
+
+class OrderMenu {
+    - om: OrderManager
+    - cm: CustomerManager
+    - pm: ProductManager
+    - sc: Scanner
+    + OrderMenu(om, cm, pm)
+    + orderMenu()
+    + createOrder()
+    + listOrders()
+    + updateOrderStatus()
+    + deleteOrder()
+    + searchOrders()
+}
+
+Order "1" *-- "0..*" OrderItem : contains
+
+OrderManager "1" <.. "0..*" Order : manages
+
+OrderMenu o--> OrderManager : uses
+OrderMenu o--> CustomerManager : uses
+OrderMenu o--> ProductManager : uses
+
+' --------------------------
+' PHẦN 5: CHƯƠNG TRÌNH CHÍNH
+' --------------------------
+class StoreManagement {
+    - {static} sc: Scanner
+    - {static} pm: ProductManager
+    - {static} em: EmployeeManager
+    - {static} cm: CustomerManager
+    - {static} om: OrderManager
+    + {static} main(args: String[])
+    - {static} mainMenu()
+    - {static} productMenu()
+    - {static} employeeMenu()
+    - {static} customerMenu()
+    - {static} orderMenu()
+    - {static} autoLoad()
+    - {static} autoSave()
+}
+@enduml

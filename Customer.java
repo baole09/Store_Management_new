@@ -1,11 +1,13 @@
 public class Customer {
+    //thuộc tính
     private static int counter = 0;
     private String id;
     private String name;
     private String phone;
     private String email;
-
+    //constructor
     public Customer(String id, String name, String phone, String email){
+        // sinh id tự động
         if (id == null || id.isEmpty()){
             counter++;
             this.id = "C" + counter;
@@ -18,21 +20,25 @@ public class Customer {
                     if (v > counter) 
                         counter = v;
                 }
-            } catch(Exception e){}
+            } catch(Exception e){
+                
+            }
         }
         this.name = name;
         this.phone = phone; 
         this.email = email;
     }
-
+    //getter
     public String getId(){return id;}
     public String getName(){return name;}
     public String getPhone(){return phone;}
     public String getEmail(){return email;}
+    //setter
     public void setName(String n){ name = n;}
     public void setPhone(String p){ phone = p;}
     public void setEmail(String e){ email = e;}
 
+    
     public String toCSV(){
         return String.join("|", id, escape(name), phone, email);
     }
